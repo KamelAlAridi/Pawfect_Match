@@ -1,8 +1,21 @@
 import styles from "../CSSmodules/FavButton.module.css";
 import { addToFavorites } from "../../api/petApi";
 
-export default function FavButton({ petid, setIsFav, btnText, setBtnText }) {
+export default function FavButton({
+  petid,
+  setIsFav,
+  btnText,
+  setBtnText,
+  isAuthenticated,
+}) {
   const handleAddToFavorites = async () => {
+    if (!isAuthenticated) {
+      setBtnText("Please log in to add pets to favorites.");
+      setTimeout(() => {
+        setBtnText("");
+      }, 3000);
+      return;
+    }
     const user = localStorage.getItem("user");
 
     const userId = JSON.parse(user)?.id;

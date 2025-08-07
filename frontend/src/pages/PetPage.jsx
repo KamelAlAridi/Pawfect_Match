@@ -5,7 +5,7 @@ import styles from "../CSSmodules/PetPage.module.css";
 import FavButton from "../components/FavButton";
 import UnFavButton from "../components/UnFavButton";
 
-export default function PetDetails() {
+export default function PetPage({ isAuthenticated }) {
   const { id } = useParams();
   const [pet, setPet] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,12 +17,14 @@ export default function PetDetails() {
     const fetchPet = async () => {
       try {
         const foundPet = await api.getPetById(id);
-        const favorite = await api.isPetFavorite(
-          id,
-          JSON.parse(localStorage.getItem("user"))?.id
-        );
+        if (isAuthenticated) {
+          const favorite = await api.isPetFavorite(
+            id,
+            JSON.parse(localStorage.getItem("user"))?.id
+          );
+          setIsFav(favorite.isFavorite);
+        }
         setPet(foundPet);
-        setIsFav(favorite.isFavorite);
       } catch (err) {
         console.error(err);
         setError("Failed to load pet.");
@@ -80,6 +82,7 @@ export default function PetDetails() {
           setIsFav={setIsFav}
           btnText={btnText}
           setBtnText={setBtnText}
+          isAuthenticated={isAuthenticated}
         />
       )}
     </div>

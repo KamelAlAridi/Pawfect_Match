@@ -133,11 +133,7 @@ function App() {
             />
             <Route
               path="/pet/:id"
-              element={
-                <ProtectedRoute>
-                  <PetPage />
-                </ProtectedRoute>
-              }
+              element={<PetPage isAuthenticated={isAuthenticated} />}
             />
             <Route
               path="/account"

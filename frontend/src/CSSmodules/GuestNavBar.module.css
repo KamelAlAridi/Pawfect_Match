@@ -1,10 +1,11 @@
 .navbar {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
   background-color: #fff;
   padding: 0.7rem 1.2rem;
   color: #111;
+  border-bottom: #111 solid 1px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
