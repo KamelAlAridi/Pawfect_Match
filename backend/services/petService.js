@@ -129,6 +129,21 @@ async function isPetFavorite(petId, userId) {
   }
 }
 
+async function getPetsByUserId(userId) {
+  try {
+    const { data, error } = await supabase
+      .from("pets")
+      .select("*")
+      .eq("user_id", userId);
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching pets by user ID: " + error.message);
+  }
+}
+
 export default {
   uploadPhoto,
   getAllPets,
@@ -137,4 +152,5 @@ export default {
   getFavoritesByUserId,
   removeFromFavorites,
   isPetFavorite,
+  getPetsByUserId,
 };

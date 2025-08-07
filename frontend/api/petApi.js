@@ -106,3 +106,15 @@ export async function getFavorites(userId) {
     throw error;
   }
 }
+
+export async function getPetsByUserId(userId) {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_BASE_URL}/pets/getpetsbyuserid/${userId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching pets by user ID:", error);
+    throw error;
+  }
+}
