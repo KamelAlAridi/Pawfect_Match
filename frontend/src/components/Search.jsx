@@ -22,8 +22,8 @@ export default function Search({
         >
           <option value="">Select Type</option>
           <option value="Others">Others</option>
-          <option value="Male">Dog</option>
-          <option value="Female">Cat</option>
+          <option value="Dog">Dog</option>
+          <option value="Cat">Cat</option>
         </select>
         <select
           className={styles.select}
