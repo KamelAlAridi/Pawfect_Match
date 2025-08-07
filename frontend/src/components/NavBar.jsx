@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../CSSmodules/NavigationBar.module.css";
 
-export default function NavBar({ onLogout }) {
+export default function NavBar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -13,11 +13,6 @@ export default function NavBar({ onLogout }) {
     setIsDrawerOpen(false);
   };
 
-  const handleLogout = () => {
-    onLogout();
-    closeDrawer();
-  };
-
   const handleLinkClick = () => {
     closeDrawer();
   };
@@ -25,8 +20,10 @@ export default function NavBar({ onLogout }) {
   return (
     <>
       <nav className={styles.navbar}>
-        {/* Desktop Navigation */}
         <div className={styles.nav_left}>
+          <div className={styles.iconContainer}>
+            <img src="/images/pawFav.png" className={styles.icon} />
+          </div>
           <Link to="/main" className={styles.nav_link}>
             Home
           </Link>
@@ -47,7 +44,6 @@ export default function NavBar({ onLogout }) {
           </Link>
         </div>
 
-        {/* Hamburger Menu */}
         <div className={styles.hamburger} onClick={toggleDrawer}>
           <div className={styles.hamburger_line}></div>
           <div className={styles.hamburger_line}></div>
@@ -55,7 +51,6 @@ export default function NavBar({ onLogout }) {
         </div>
       </nav>
 
-      {/* Mobile Drawer */}
       <div
         className={`${styles.drawer} ${isDrawerOpen ? styles.drawer_open : ""}`}
         onClick={closeDrawer}

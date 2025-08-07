@@ -3,7 +3,7 @@
   justify-content: flex-end;
   align-items: flex-end;
   background-color: #fff;
-  padding: 0.7rem 1.2rem;
+  padding: 0.4rem 1.2rem;
   color: #111;
   border-bottom: #111 solid 1px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -17,7 +17,7 @@
   font-weight: bold;
   cursor: pointer;
   border-radius: 6px;
-  margin: 1rem;
+  margin: 0.3rem;
   margin-bottom: 0.3rem;
   font-size: 0.95rem;
   transition: background 0.3s;
@@ -26,6 +26,16 @@
 .sign_button:hover {
   background-color: #ffea98;
   color: #111;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.iconContainer {
+  position: absolute;
+  left: 1rem;
 }
 
 @media (max-width: 768px) {

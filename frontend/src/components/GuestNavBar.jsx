@@ -6,6 +6,9 @@ export default function GuestNavBar() {
   return (
     <>
       <nav className={styles.navbar}>
+        <div className={styles.iconContainer}>
+          <img src="/images/pawFav.png" className={styles.icon} />
+        </div>
         <button
           className={styles.sign_button}
           onClick={navigate.bind(null, "/signin")}
