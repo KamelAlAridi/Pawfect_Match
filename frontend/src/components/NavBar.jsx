@@ -53,11 +53,6 @@ export default function NavBar({ onLogout }) {
           <div className={styles.hamburger_line}></div>
           <div className={styles.hamburger_line}></div>
         </div>
-
-        {/* Desktop Logout Button */}
-        <button className={styles.logout_button} onClick={onLogout}>
-          Logout
-        </button>
       </nav>
 
       {/* Mobile Drawer */}
@@ -121,10 +116,6 @@ export default function NavBar({ onLogout }) {
             >
               Account
             </Link>
-
-            <button className={styles.drawer_logout} onClick={handleLogout}>
-              Logout
-            </button>
           </nav>
         </div>
       </div>

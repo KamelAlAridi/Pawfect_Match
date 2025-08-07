@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt, { hash } from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import nodemailer from "nodemailer";
 import supabase from "../supabaseClient.js";
@@ -84,9 +84,52 @@ async function checkUserExists(email) {
   }
 }
 
+async function changeUserName(userId, newName) {
+  try {
+    const { data, error } = await supabase
+      .from("users")
+      .update({ name: newName })
+      .eq("id", userId)
+      .select("*")
+      .single();
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    throw new Error("Error updating name: " + error.message);
+  }
+}
+
+async function changeUserPassword(email, oldPassword, newPassword) {
+  const user = await authenticateUser(email, oldPassword);
+  const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+  const { data, error } = await supabase
+    .from("users")
+    .update({ password: hashedNewPassword })
+    .eq("id", user.id)
+    .select("*")
+    .single();
+
+  if (error) throw new Error("Error updating password: " + error.message);
+  return data;
+}
+
+async function deleteUser(email, password) {
+  const user = await authenticateUser(email, password);
+
+  const { error } = await supabase.from("users").delete().eq("id", user.id);
+
+  if (error) throw new Error("Error deleting account: " + error.message);
+
+  return { message: "Account deleted successfully" };
+}
+
 export default {
   sendVerificationCode,
   registerUser,
   authenticateUser,
   checkUserExists,
+  changeUserName,
+  changeUserPassword,
+  deleteUser,
 };

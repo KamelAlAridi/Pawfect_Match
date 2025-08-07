@@ -51,3 +51,52 @@ export async function isUserCreated(email) {
     throw error;
   }
 }
+
+export async function updateName(userId, newName) {
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_API_BASE_URL}/auth/update-name`,
+      { userId, newName }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating name:", error);
+    throw error;
+  }
+}
+
+export async function changePassword(email, oldPassword, newPassword) {
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_API_BASE_URL}/auth/update-password`,
+      { email, oldPassword, newPassword }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error changing password:", error);
+    throw error;
+  }
+}
+
+export async function deleteAccount(email, password) {
+  try {
+    const response = await axios.delete(
+      `${import.meta.env.VITE_API_BASE_URL}/auth/delete-account`,
+      { data: { email, password } }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting account:", error);
+    if (error.response) {
+      // Server responded with error status
+      const message = error.response.data?.error || "Failed to delete account";
+      throw new Error(message);
+    } else if (error.request) {
+      // Request was made but no response received
+      throw new Error("Network error. Please check your connection.");
+    } else {
+      // Something else happened
+      throw new Error("An unexpected error occurred.");
+    }
+  }
+}

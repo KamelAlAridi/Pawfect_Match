@@ -33,24 +33,6 @@
   text-decoration: none;
 }
 
-.logout_button {
-  background-color: #111;
-  border: none;
-  color: #ffc107;
-  padding: 0.4rem 0.9rem;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 6px;
-  margin-top: 0.3rem;
-  font-size: 0.95rem;
-  transition: background 0.3s, color 0.3s;
-}
-
-.logout_button:hover {
-  background-color: #ffc107;
-  color: #111;
-}
-
 .hamburger {
   display: none;
   flex-direction: column;
@@ -139,24 +121,6 @@
   text-decoration: none;
 }
 
-.drawer_logout {
-  background-color: #111;
-  border: none;
-  color: #ffc107;
-  padding: 0.6rem 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 6px;
-  font-size: 1rem;
-  margin-top: 1rem;
-  transition: background 0.3s, color 0.3s;
-}
-
-.drawer_logout:hover {
-  background-color: #ffc107;
-  color: #111;
-}
-
 @media (max-width: 768px) {
   .navbar {
     align-items: flex-start;
@@ -165,10 +129,6 @@
   }
 
   .nav_left {
-    display: none;
-  }
-
-  .logout_button {
     display: none;
   }
 

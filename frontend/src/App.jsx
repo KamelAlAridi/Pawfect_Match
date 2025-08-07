@@ -139,7 +139,7 @@ function App() {
               path="/account"
               element={
                 <ProtectedRoute>
-                  <AccountPage user={user} />
+                  <AccountPage user={user} onLogout={handleLogout} />
                 </ProtectedRoute>
               }
             />

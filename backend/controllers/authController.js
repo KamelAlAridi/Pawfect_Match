@@ -45,3 +45,51 @@ export async function isUserCreated(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
+export async function updateName(req, res) {
+  const { userId, newName } = req.body;
+  try {
+    const updatedUser = await authService.changeUserName(userId, newName);
+    res.json({
+      message: "Name updated successfully",
+      user: {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        name: updatedUser.name,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}
+
+export async function updatePassword(req, res) {
+  const { email, oldPassword, newPassword } = req.body;
+  try {
+    const updatedUser = await authService.changeUserPassword(
+      email,
+      oldPassword,
+      newPassword
+    );
+    res.json({
+      message: "Password updated successfully",
+      user: {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        name: updatedUser.name,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}
+
+export async function deleteAccount(req, res) {
+  const { email, password } = req.body;
+  try {
+    await authService.deleteUser(email, password);
+    res.json({ message: "Account Deleted Successfully" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
