@@ -76,6 +76,16 @@ export default function AboutPage({ isAuthenticated }) {
           everywhere.
         </p>
 
+        <h2>Contact Us</h2>
+        <h3>Email:</h3>
+        <div className={styles.middleParag}>
+          <p>kamelalaridi@gmail.com</p>
+        </div>
+        <h3>Phone:</h3>
+        <div className={styles.middleParag}>
+          <p>+961 76 153 898</p>
+        </div>
+
         <h1>Join us in making a difference. Adopt. Don't shop.</h1>
         {isAuthenticated ? (
           <>
