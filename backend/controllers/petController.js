@@ -114,3 +114,38 @@ export const getPetsByUserId = async (req, res) => {
       .json({ error: "Internal server error while fetching pets by user ID" });
   }
 };
+
+export const deletePet = async (req, res) => {
+  try {
+    const petId = req.params.petId;
+    if (!petId) {
+      return res.status(400).json({ error: "Pet ID is required" });
+    }
+
+    const result = await petService.deletePet(petId);
+
+    if (!result || !result.success) {
+      return res.status(500).json({
+        error: "Failed to delete pet",
+        details: result?.error || "Unknown error",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Pet deleted successfully",
+      deletedId: petId,
+    });
+  } catch (err) {
+    console.error("Error in deletePet controller:", err); // Add logging
+
+    if (err.message === "Pet not found") {
+      return res.status(404).json({ error: "Pet not found" });
+    }
+
+    res.status(500).json({
+      error: "Internal server error while deleting pet",
+      details: err.message, // Add details for debugging
+    });
+  }
+};

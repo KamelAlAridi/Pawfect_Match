@@ -144,6 +144,54 @@ async function getPetsByUserId(userId) {
   }
 }
 
+async function deletePet(petId) {
+  try {
+    const pet = await getPetById(petId);
+    if (!pet) {
+      throw new Error("Pet not found");
+    }
+    if (pet.photo) {
+      try {
+        const url = new URL(pet.photo);
+        const bucketPath = "/storage/v1/object/public/pets/";
+        const bucketIndex = url.pathname.indexOf(bucketPath);
+
+        if (bucketIndex === -1) {
+          console.warn("Invalid pet photo URL format, skipping image deletion");
+        } else {
+          const filePath = url.pathname.substring(
+            bucketIndex + bucketPath.length
+          );
+
+          const { data, error: storageError } = await supabase.storage
+            .from("pets")
+            .remove([filePath]);
+
+          if (storageError) {
+            console.error("Storage deletion error:", storageError);
+          }
+        }
+      } catch (urlError) {
+        console.error("Error processing image URL:", urlError);
+      }
+    }
+
+    const { error: dbError } = await supabase
+      .from("pets")
+      .delete()
+      .eq("id", petId);
+
+    if (dbError) {
+      throw new Error("Error deleting pet from database: " + dbError.message);
+    }
+
+    return { success: true, deletedId: petId };
+  } catch (error) {
+    console.error("Error in deletePet service:", error);
+    throw error;
+  }
+}
+
 export default {
   uploadPhoto,
   getAllPets,
@@ -153,4 +201,5 @@ export default {
   removeFromFavorites,
   isPetFavorite,
   getPetsByUserId,
+  deletePet,
 };

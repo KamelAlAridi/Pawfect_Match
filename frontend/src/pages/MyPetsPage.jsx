@@ -18,12 +18,16 @@ export default function MyPetsPage({ user }) {
     fetchPets();
   }, []);
 
+  function onDelete(id) {
+    setPets(pets.filter((pet) => pet.id !== id));
+  }
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{user.name}'s Pets</h1>
-      <div className={styles.cardContainer}>
+      <div>
         {pets.map((pet) => (
-          <MyPetsCard key={pet.id} pet={pet} />
+          <MyPetsCard key={pet.id} pet={pet} onDelete={onDelete} />
         ))}
       </div>
     </div>

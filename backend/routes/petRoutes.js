@@ -8,6 +8,7 @@ import {
   removeFromFavorites,
   isPetFavorite,
   getPetsByUserId,
+  deletePet,
 } from "../controllers/petController.js";
 import multer from "multer";
 
@@ -24,5 +25,6 @@ router.get("/getfavorites/:userId", getFavorites);
 router.post("/removefromfavorites", removeFromFavorites);
 router.get("/isfavorite/:petId/:userId", isPetFavorite);
 router.get("/getpetsbyuserid/:userId", getPetsByUserId);
+router.delete("/deletepet/:petId", deletePet);
 
 export default router;

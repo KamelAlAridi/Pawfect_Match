@@ -118,3 +118,15 @@ export async function getPetsByUserId(userId) {
     throw error;
   }
 }
+
+export async function deletePet(petId) {
+  try {
+    const response = await axios.delete(
+      `${import.meta.env.VITE_API_BASE_URL}/pets/deletepet/${petId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting pet:", error);
+    throw error;
+  }
+}
