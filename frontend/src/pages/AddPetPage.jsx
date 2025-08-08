@@ -13,7 +13,7 @@ function AddPetPage({ user }) {
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
-    fileInputRef.current.click(); // open file dialog
+    fileInputRef.current.click();
   };
 
   const handleSubmit = async (e) => {
@@ -57,8 +57,8 @@ function AddPetPage({ user }) {
         phone_num,
         user_id,
       });
-      console.log(result);
       setSuccess("Pet added successfully!");
+      setName("");
     } catch (error) {
       setErr("Failed to add pet.");
       console.error("Error adding pet:", error);
@@ -100,6 +100,7 @@ function AddPetPage({ user }) {
             type="text"
             id="name"
             placeholder="Pet name"
+            value={name}
             onChange={(e) => setName(e.target.value)}
           />
 
@@ -139,6 +140,7 @@ function AddPetPage({ user }) {
             className={styles.input}
             type="text"
             id="phone"
+            value={phone_num}
             placeholder="Owner phone number"
             onChange={(e) => setPhone(e.target.value)}
           />
