@@ -23,6 +23,18 @@ export async function signup(req, res) {
   }
 }
 
+export async function changePass(req, res) {
+  const { email, password, code } = req.body;
+  try {
+    const user = await authService.changePass(email, code, password);
+    res.json({
+      message: "User pass changed successfully",
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}
+
 export async function signin(req, res) {
   const { email, password } = req.body;
   try {

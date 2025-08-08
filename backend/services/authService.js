@@ -55,6 +55,30 @@ async function registerUser(email, code, name, password) {
   return { id, email, name };
 }
 
+async function changePass(email, code, password) {
+  const stored = await codeModel.getLatestCode(email);
+  if (!stored) throw new Error("No code found");
+
+  const now = new Date();
+  const created = new Date(stored.created_at);
+  const diffMinutes = (now - created) / 1000 / 60;
+  if (diffMinutes > 2) throw new Error("Code expired");
+
+  if (stored.code !== code) throw new Error("Incorrect code");
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const { error } = await supabase
+    .from("users")
+    .update({ password: hashedPassword })
+    .eq("email", email);
+
+  if (error) throw new Error(error.message);
+
+  await codeModel.markCodeAsUsed(stored.id);
+  return null;
+}
+
 async function authenticateUser(email, password) {
   const { data, error } = await supabase
     .from("users")
@@ -132,4 +156,5 @@ export default {
   changeUserName,
   changeUserPassword,
   deleteUser,
+  changePass,
 };

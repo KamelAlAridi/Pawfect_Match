@@ -88,15 +88,25 @@ export async function deleteAccount(email, password) {
   } catch (error) {
     console.error("Error deleting account:", error);
     if (error.response) {
-      // Server responded with error status
       const message = error.response.data?.error || "Failed to delete account";
       throw new Error(message);
     } else if (error.request) {
-      // Request was made but no response received
       throw new Error("Network error. Please check your connection.");
     } else {
-      // Something else happened
       throw new Error("An unexpected error occurred.");
     }
+  }
+}
+
+export async function newPassword(email, password, code) {
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_API_BASE_URL}/auth/changePass`,
+      { email, password, code }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error reseting password:", error);
+    throw error;
   }
 }

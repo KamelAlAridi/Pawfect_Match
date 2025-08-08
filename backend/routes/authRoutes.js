@@ -7,6 +7,7 @@ import {
   updateName,
   updatePassword,
   deleteAccount,
+  changePass,
 } from "../controllers/authController.js";
 
 const router = express.Router();
@@ -18,5 +19,6 @@ router.post("/isUserCreated", isUserCreated);
 router.put("/update-name", updateName);
 router.put("/update-password", updatePassword);
 router.delete("/delete-account", deleteAccount);
+router.put("/changePass", changePass);
 
 export default router;

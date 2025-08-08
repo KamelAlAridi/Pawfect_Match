@@ -11,6 +11,12 @@ export default function GuestNavBar() {
         </div>
         <button
           className={styles.sign_button}
+          onClick={navigate.bind(null, "/")}
+        >
+          About
+        </button>
+        <button
+          className={styles.sign_button}
           onClick={navigate.bind(null, "/signin")}
         >
           Sign in
